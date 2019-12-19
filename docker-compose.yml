@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  falcon:
+    build:
+      context: falcon
+    ports:
+      - "8000:8000"
+
+  falcon_classic:
+    build:
+      context: falcon
+      dockerfile: Dockerfile_classic
+    ports:
+      - "8001:8000"
+
+  flask:
+    build:
+      context: flask
+    ports:
+      - "8002:8000"
+
+  flask_classic:
+    build:
+      context: flask
+      dockerfile: Dockerfile_classic
+    ports:
+      - "8003:8000"
+
+  documentation:
+    image: thomsch98/markserv
+    volumes:
+      - "./documentation:/data"
+    ports:
+      - "8080:8080"
+    command: markserv -p 8080 -a 0.0.0.0
